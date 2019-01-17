@@ -1,34 +1,35 @@
 import React from 'react'
 
-import clearCurrentMention from './utils/clearCurrentMention'
-import getCurrentMentionText from './utils/getCurrentMentionText'
+import clearCurrentShortcut from './utils/clearCurrentShortcut'
+import getCurrentShortcutText from './utils/getCurrentShortcutText'
 import getSearchText from './utils/getSearchText'
-import insertMentionNode from './utils/insertMentionNode'
-import isInsideMention from './utils/isInsideMention'
+import insertShortcutNode from './utils/insertShortcutNode'
+import isInsideShortcut from './utils/isInsideShortcut'
 import validateOptions from './utils/validateOptions'
 
 import { TAB, ENTER, SPACE, UP, DOWN } from './keys'
 
-export default function createMentionPlugin(options) {
+export default function createShortcutPlugin(options) {
   const pluginOptions = validateOptions(options)
 
   const {
-    Mark, Mention, SuggestionItem, trigger, type,
+    Mark, Shortcut, SuggestionItem, trigger, type,
     onCollapse, onInsert, onSearch, onSeek, onTrigger
   } = pluginOptions
 
-  const key = `${type}-mention`
+  const key = `${type}-shortcut`
 
   const schema = {
     marks: {
       [key]: Mark
     },
     nodes: {
-      [key]: Mention
+      [key]: Shortcut
     }
   }
 
   function render(props, state) {
+    console.log(props.children);
     return (
       <div id={`${key}-plugin`}>
         {props.children}
@@ -36,8 +37,8 @@ export default function createMentionPlugin(options) {
     )
   }
 
-  function addMention(mention, state) {
-    return insertMentionNode(mention, state, trigger, key)
+  function addShortcut(shortcut, state) {
+    return insertShortcutNode(shortcut, state, trigger, key)
   }
 
   function addMark(state) {
@@ -47,11 +48,11 @@ export default function createMentionPlugin(options) {
   }
 
   function onKeyDown(event, { code }, state) {
-    if (!isInsideMention(state, key)) return
+    if (!isInsideShortcut(state, key)) return
 
     switch (code) {
       case SPACE:
-        return clearCurrentMention(state, trigger, key).apply()
+        return clearCurrentShortcut(state, trigger, key).apply()
 
       case TAB:
       case ENTER:
@@ -75,14 +76,14 @@ export default function createMentionPlugin(options) {
   }
 
   function onBeforeInput(event, data, state) {
-    if (isInsideMention(state, key)) {
+    if (isInsideShortcut(state, key)) {
       if (event.data === trigger) {
         event.preventDefault()
         return state
       }
 
-      const mentionText = getCurrentMentionText(state.endText.text, trigger)
-      onSearch(getSearchText(mentionText, event.data))
+      const shortcutText = getCurrentShortcutText(state.endText.text, trigger)
+      onSearch(getSearchText(shortcutText, event.data))
     } else {
       if (event.data === trigger) {
         event.preventDefault()
@@ -102,7 +103,7 @@ export default function createMentionPlugin(options) {
       return
     }
 
-    if (isInsideMention(state, key)) {
+    if (isInsideShortcut(state, key)) {
       onTrigger()
     } else {
       onCollapse()
@@ -111,7 +112,7 @@ export default function createMentionPlugin(options) {
 
   return {
     addMark,
-    addMention,
+    addShortcut,
     onBeforeInput,
     onChange,
     onKeyDown,

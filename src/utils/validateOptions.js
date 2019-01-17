@@ -5,7 +5,7 @@ const DEFAULT_OPTIONS = {
   ignoreInsideBlocks: [],
   insertOnSpace: false,
   onlyInsideBlocks: [],
-  trigger: '@',
+  trigger: '/',
   type: 'default',
   onInsert: () => {},
   onSearch: () => {},
@@ -16,8 +16,8 @@ const DEFAULT_OPTIONS = {
 export default function validateOptions(options) {
   const pluginOptions = { ...DEFAULT_OPTIONS, ...options }
 
-  if (!pluginOptions.Mention) {
-    throw new Error('[slate-mentions-plugin] Mention component is required')
+  if (!pluginOptions.Shortcut) {
+    throw new Error('[slate-shortcut-plugin] Shortcut component is required')
   }
 
   return pluginOptions

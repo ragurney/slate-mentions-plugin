@@ -1,3 +1,3 @@
-export default function isInsideMention(state, key) {
+export default function isInsideShortcut(state, key) {
   return state.marks.some(mark => mark.type === key)
 }

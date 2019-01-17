@@ -1,3 +1,3 @@
-export default function getSearchText(currentMentionText, lastCharacter) {
-  return `${currentMentionText}${lastCharacter}`.substring(1)
+export default function getSearchText(currentShortcutText, lastCharacter) {
+  return `${currentShortcutText}${lastCharacter}`.substring(1)
 }

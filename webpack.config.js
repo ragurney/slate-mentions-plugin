@@ -26,7 +26,7 @@ var config = {
 };
 
 if (TARGET === 'minify') {
-  config.entry.index = path.join(__dirname, 'example/index.jsx');
+  config.entry.index = path.join(__dirname, 'example/index.js');
 
   config.plugins.push(new webpack.DefinePlugin({
     'process.env': {
@@ -50,7 +50,7 @@ if (TARGET === 'minify') {
 } else {
   config.entry.index = [
     'webpack/hot/dev-server',
-    path.join(__dirname, 'example/index.jsx')
+    path.join(__dirname, 'example/index.js')
   ];
 }
 

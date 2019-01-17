@@ -8,7 +8,7 @@ export default function Suggestion({ data, selected, onClick }) {
       className={`suggestion ${selected ? 'selected' : ''}`}
       onClick={handleClick}
     >
-      {data.handle}
+      <b>{data.title}</b> {data.description}
     </li>
   )
 }

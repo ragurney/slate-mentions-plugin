@@ -52,5 +52,9 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.9.0"
+  },
+  "dependencies": {
+    "fela": "^10.1.1",
+    "react-fela": "^10.1.1"
   }
 }
